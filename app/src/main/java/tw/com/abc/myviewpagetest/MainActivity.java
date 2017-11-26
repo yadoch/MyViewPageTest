@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     public String TAG="geoff";
+    private Page0 page0;
     private Page1 page1;
     private Page2 page2;
     private Page3 page3;
     private Page4 page4;
+    private Page5 page5;
     private FragmentManager fmgr;
     private FragmentTransaction tran;
     private ViewPager viewPager;
@@ -33,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.container);
         mesg = (TextView)findViewById(R.id.mesg);
         //res = getResources();
-
+        page0 = new Page0();
         page1 = new Page1();
         page2 = new Page2();
         page3 = new Page3();
         page4 = new Page4();
-        fragments = new Fragment[]{page1,page2,page3,page4};
+        page5 = new Page5();
+        fragments = new Fragment[]{page0,page1,page2,page3,page4,page5};
 
 
         fmgr = getSupportFragmentManager();
@@ -47,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //        tran.commit();
         viewPager.setAdapter(new  MyPagerAdapter(fmgr));
-        viewPager.setCurrentItem(0);
+        // 因Page1 在陣列第二位,所以改為1
+        viewPager.setCurrentItem(1);
     }
 
     public void gotoPage1(View view) {
