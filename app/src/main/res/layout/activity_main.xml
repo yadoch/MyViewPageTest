@@ -55,6 +55,23 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <!--
+        //頂部文字標題,隨頁面滑動
+        <android.support.v4.view.PagerTitleStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        //底部顯示Tab 不能同時使用
+        -->
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pagertab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+    </android.support.v4.view.ViewPager>
+
 
 </LinearLayout>

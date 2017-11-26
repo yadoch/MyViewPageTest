@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] fragments;
     //private Resources res;
     TextView mesg;
-
+    private ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         viewPager = (ViewPager)findViewById(R.id.container);
         mesg = (TextView)findViewById(R.id.mesg);
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(1);
                 }else if(position== 5){
                     viewPager.setCurrentItem(4);
+                }else {
+                    actionBar.setSelectedNavigationItem(position - 1);
                 }
             }
 
@@ -73,9 +77,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        initActionBar();
         // 因Page1 在陣列第二位,所以改為1
         viewPager.setCurrentItem(1);
+    }
+
+    private void initActionBar() {
+        actionBar = getSupportActionBar();
+        // 定義外觀
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar.TabListener tabListener =new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                viewPager.setCurrentItem(tab.getPosition()+1);
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+            }
+        };
+
+        for (int i=0; i<4; i++){
+            actionBar.addTab(actionBar.newTab()
+                    .setText("Page" + (i+1))
+                    .setTabListener(tabListener));
+        }
     }
 
     public void gotoPage1(View view) {
@@ -124,6 +156,16 @@ public class MainActivity extends AppCompatActivity {
             //取得陣列長度
             return fragments.length;
             //return 0;
+        }
+        //需新增-搭配版面的<android.support.v4.view.PagerTitleStrip> 顯示標題
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position==0 || position == 5){
+                return "";
+            }else {
+                return  "PageAA" + (position);
+            }
+            //return super.getPageTitle(position);
         }
     }
 }
