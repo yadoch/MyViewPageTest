@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar.TabListener tabListener =new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                //選擇Tab時要進行的動作
                 viewPager.setCurrentItem(tab.getPosition()+1);
             }
 
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         for (int i=0; i<4; i++){
+            //加上TAB 的名稱
             actionBar.addTab(actionBar.newTab()
                     .setText("Page" + (i+1))
                     .setTabListener(tabListener));
